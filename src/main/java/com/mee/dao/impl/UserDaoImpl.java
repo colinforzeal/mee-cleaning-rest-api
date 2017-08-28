@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserDaoImpl implements UserDao {
-
     @Autowired
     private MongoTemplate mongoTemplate;
 
