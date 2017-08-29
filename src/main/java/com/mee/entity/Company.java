@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class Company {
@@ -19,4 +21,6 @@ public class Company {
     // todo change type
     private String openingHours;
     private String openingDays;
+
+    private List<Role> roles;
 }

@@ -11,7 +11,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping("/users")
+    @RequestMapping("/api/users")
     public User findAll() {
         return userRepository.findByFirstName("hello");
     }
