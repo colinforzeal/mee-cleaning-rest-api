@@ -1,4 +1,4 @@
-package com.mee.security.auth.ajax;
+package com.mee.security.auth.login;
 
 import com.mee.entity.Company;
 import com.mee.service.CompanyService;
@@ -23,12 +23,12 @@ import java.util.stream.Collectors;
 
 
 @Component
-public class AjaxAuthenticationProvider implements AuthenticationProvider {
+public class LoginAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder encoder;
     private final CompanyService companyService;
 
     @Autowired
-    public AjaxAuthenticationProvider(CompanyService companyService, BCryptPasswordEncoder encoder) {
+    public LoginAuthenticationProvider(CompanyService companyService, BCryptPasswordEncoder encoder) {
         this.companyService = companyService;
         this.encoder = encoder;
     }
@@ -42,7 +42,13 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 
         Company company = companyService.getByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
 
-        if (!encoder.matches(password, company.getPassword())) {
+        // todo check encoding
+
+//        if (!encoder.matches(password, company.getPassword())) {
+//            throw new BadCredentialsException("Authentication Failed. Email or Password not valid.");
+//        }
+
+        if (!password.equals(company.getPassword())) {
             throw new BadCredentialsException("Authentication Failed. Email or Password not valid.");
         }
 

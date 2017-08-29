@@ -1,4 +1,4 @@
-package com.mee.security.auth.ajax;
+package com.mee.security.auth.handlers;
 
 import java.io.IOException;
 
@@ -21,11 +21,11 @@ import com.mee.security.exceptions.JwtExpiredTokenException;
 
 
 @Component
-public class AjaxAwareAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class GeneralAuthenticationFailureHandler implements AuthenticationFailureHandler {
     private final ObjectMapper mapper;
     
     @Autowired
-    public AjaxAwareAuthenticationFailureHandler(ObjectMapper mapper) {
+    public GeneralAuthenticationFailureHandler(ObjectMapper mapper) {
         this.mapper = mapper;
     }	
     

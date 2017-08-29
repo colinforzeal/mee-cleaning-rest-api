@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import com.mee.security.auth.JwtAuthenticationToken;
 import com.mee.security.config.JwtSettings;
 import com.mee.security.model.CompanyContext;
-import com.mee.security.model.token.JwtToken;
 import com.mee.security.model.token.RawAccessJwtToken;
 
 import io.jsonwebtoken.Claims;

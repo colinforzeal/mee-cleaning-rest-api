@@ -16,6 +16,10 @@ public class CompanyService {
         this.companyRepository = repository;
     }
 
+    public void save(Company company) {
+        this.companyRepository.insert(company);
+    }
+
     public Optional<Company> getByEmail(String email) {
         return this.companyRepository.findByEmail(email);
     }
