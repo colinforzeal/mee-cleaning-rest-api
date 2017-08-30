@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.mee.utils.Utils.origin;
+
+@CrossOrigin(origins = origin, maxAge = 3600)
 @RestController
 @RequestMapping(value = "/company")
 public class CompanyController {
