@@ -36,7 +36,7 @@ public class GeneralAuthenticationSuccessHandler implements AuthenticationSucces
             Authentication authentication) throws IOException, ServletException {
         CompanyContext companyContext = (CompanyContext) authentication.getPrincipal();
         
-        JwtToken accessToken = tokenFactory.createAccessJwtToken(companyContext);
+        JwtToken accessToken = tokenFactory.createAccessJwtTokenForCompany(companyContext);
         
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", accessToken.getToken());

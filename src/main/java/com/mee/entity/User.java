@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -19,4 +21,5 @@ public class User {
     private String facebookId;
     private String password;
     private String photoUrl;
+    private List<Role> roles;
 }

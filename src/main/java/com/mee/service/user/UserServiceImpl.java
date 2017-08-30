@@ -8,11 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+    private UserRepository userRepository;
+
     @Autowired
-    UserRepository userRepository;
+    public void setUserRepository(UserRepository repository) {
+        this.userRepository = repository;
+    }
 
     public User findByFirstName(String firstName) {
         return userRepository.findByFirstName(firstName);
@@ -24,5 +29,9 @@ public class UserServiceImpl implements UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public void save(User user) {
+        this.userRepository.save(user);
     }
 }

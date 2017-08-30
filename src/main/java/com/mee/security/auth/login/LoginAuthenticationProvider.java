@@ -42,13 +42,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 
         Company company = companyService.getByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
 
-        // todo check encoding
-
-//        if (!encoder.matches(password, company.getPassword())) {
-//            throw new BadCredentialsException("Authentication Failed. Email or Password not valid.");
-//        }
-
-        if (!password.equals(company.getPassword())) {
+        if (!encoder.matches(password, company.getPassword())) {
             throw new BadCredentialsException("Authentication Failed. Email or Password not valid.");
         }
 
