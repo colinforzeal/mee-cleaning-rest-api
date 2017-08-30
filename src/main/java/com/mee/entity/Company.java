@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
+import java.time.DayOfWeek;
 import java.util.List;
 
 @Getter
@@ -23,8 +24,8 @@ public class Company {
     private String photoUrl;
 
     // todo change type
-    private String openingHours;
-    private String openingDays;
-
+    //private String openingHours;
+    private List<DayOfWeek> openingDays;
+    private OpeningHours openingHours;
     private List<Role> roles;
 }
