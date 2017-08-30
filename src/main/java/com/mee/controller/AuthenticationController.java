@@ -9,7 +9,8 @@ import com.mee.security.model.CompanyContext;
 import com.mee.security.model.token.AccessJwtToken;
 import com.mee.security.model.token.JwtToken;
 import com.mee.security.model.token.JwtTokenFactory;
-import com.mee.service.CompanyService;
+
+import com.mee.service.company.CompanyService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;

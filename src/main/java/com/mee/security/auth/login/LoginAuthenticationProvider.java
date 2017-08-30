@@ -1,7 +1,7 @@
 package com.mee.security.auth.login;
 
 import com.mee.entity.Company;
-import com.mee.service.CompanyService;
+import com.mee.service.company.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

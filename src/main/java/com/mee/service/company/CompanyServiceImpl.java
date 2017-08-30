@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,5 +36,13 @@ public class CompanyServiceImpl implements CompanyService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void save(Company company) {
+        this.companyRepository.insert(company);
+    }
+
+    public Optional<Company> getByEmail(String email) {
+        return this.companyRepository.findByEmail(email);
     }
 }
