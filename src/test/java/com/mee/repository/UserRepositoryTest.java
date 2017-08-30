@@ -18,9 +18,12 @@ public class UserRepositoryTest {
     @Test
     public void save() throws Exception {
         User user = new User();
-        user.setId("21");
-        user.setFirstName("user");
-        user.setPassword("1234567");
+        user.setId("3");
+        user.setFirstName("Igar");
+        user.setPassword("IgorekVershik");
+        user.setLastName("Vershall");
+        user.setFacebookId("g8ffg75blar654nza75");
+        user.setPhotoUrl("http://gordonua.com/img/article/1880/74_tn.jpg");
         userRepository.save(user);
     }
 

@@ -18,8 +18,14 @@ public class CompanyRepositoryTest {
     @Test
     public void save() throws Exception {
         Company company = new Company();
-        company.setId("42");
-        company.setPassword("1234567");
+        company.setId("3");
+        company.setPassword("qwerty12345");
+        company.setEmail("viter.sneki@gmail.com");
+        company.setAddress("Mexico, Charlie 18, 128-b");
+        company.setName("FiveStarCleaning");
+        company.setOpeningDays("Monday, Tuesday, Friday, Saturday, Sunday");
+        company.setOpeningHours("10.30-23.30");
+        company.setPhotoUrl("http://www.bugaga.ru/uploads/posts/2016-08/1471555196_subbota-25.jpg");
         companyRepository.save(company);
     }
 

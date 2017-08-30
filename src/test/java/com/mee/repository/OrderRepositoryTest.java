@@ -19,14 +19,14 @@ public class OrderRepositoryTest {
     @Test
     public void save() {
         Order order = new Order();
-        order.setId("3");
-        order.setCompanyId("1");
-        order.setCompanyName("SunCompany");
-        order.setFullName("Kiryl Ziusko & Vlad Bondar");
-        order.setUserId("1");
+        order.setId("4");
+        order.setCompanyId("3");
+        order.setCompanyName("FiveStarCleaning");
+        order.setUserId("2");
+        order.setFullName("Oleg Raptunov");
         order.setWorkDay(LocalDate.now());
-        order.setWorkHoursTo(LocalTime.now());
-        order.setWorkHouseFrom(LocalTime.now());
+        order.setWorkHoursTo(LocalTime.now().plusHours(4));
+        order.setWorkHouseFrom(LocalTime.now().plusHours(3));
         orderRepository.save(order);
     }
 
