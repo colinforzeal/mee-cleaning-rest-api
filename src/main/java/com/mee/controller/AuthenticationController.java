@@ -1,5 +1,6 @@
 package com.mee.controller;
 
+import com.mee.common.EmptyJsonResponse;
 import com.mee.entity.Company;
 import com.mee.entity.Role;
 import com.mee.security.auth.AuthRequest;
@@ -43,7 +44,7 @@ public class AuthenticationController {
     private JwtTokenFactory tokenFactory;
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ResponseEntity<JwtToken> signup(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> signup(@RequestBody AuthRequest authRequest) {
         Company company = new Company();
         company.setEmail(authRequest.getEmail());
         company.setPassword(encoder.encode(authRequest.getPassword()));
@@ -51,15 +52,7 @@ public class AuthenticationController {
 
         companyService.save(company);
 
-        List<GrantedAuthority> authorities = company.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-                .collect(Collectors.toList());
-
-        CompanyContext companyContext = new CompanyContext(company.getEmail(), authorities);
-
-        JwtToken accessToken = tokenFactory.createAccessJwtTokenForCompany(companyContext);
-
-        return new ResponseEntity<>(accessToken, HttpStatus.OK);
+        return new ResponseEntity<>(new EmptyJsonResponse(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
