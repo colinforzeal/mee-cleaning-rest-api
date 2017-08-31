@@ -20,7 +20,7 @@ public class Order {
     private String companyName;
     private String userId;
     private String fullName;
-    private LocalTime workHouseFrom;
+    private LocalTime workHoursFrom;
     private LocalTime workHoursTo;
     private LocalDate workDay;
 }

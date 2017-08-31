@@ -26,7 +26,7 @@ public class OrderRepositoryTest {
         order.setFullName("Oleg Raptunov");
         order.setWorkDay(LocalDate.now());
         order.setWorkHoursTo(LocalTime.now().plusHours(4));
-        order.setWorkHouseFrom(LocalTime.now().plusHours(3));
+        order.setWorkHoursFrom(LocalTime.now().plusHours(3));
         orderRepository.save(order);
     }
 
