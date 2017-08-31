@@ -3,7 +3,6 @@ package com.mee.controller;
 import com.mee.entity.Company;
 import com.mee.entity.Order;
 import com.mee.repository.CompanyRepository;
-import com.mee.security.auth.login.LoginAuthenticationProcessingFilter;
 import com.mee.service.company.CompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

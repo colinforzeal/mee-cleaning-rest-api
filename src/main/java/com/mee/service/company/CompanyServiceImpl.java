@@ -4,6 +4,10 @@ import com.mee.entity.Company;
 import com.mee.entity.Order;
 import com.mee.repository.CompanyRepository;
 import com.mee.repository.OrderRepository;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.Interval;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
@@ -30,8 +34,18 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     public List<Order> getSchedule(String date, String idCompany) {
+        String pattern = "yyyy-MM-dd";
+        DateTime now  = DateTime.parse(date.substring(0, 10), DateTimeFormat.forPattern(pattern));
+
+        DateTime weekStart = now.withDayOfWeek( DateTimeConstants.MONDAY ).withTimeAtStartOfDay();
+        DateTime weekEnd = now.withDayOfWeek(DateTimeConstants.SUNDAY).plusDays( 1 ).withTimeAtStartOfDay();
+
+        String from = weekStart.getYear()+"-"+weekStart.getMonthOfYear()+"-"+weekStart.getDayOfMonth();
+        String to = weekEnd.getYear()+"-"+weekEnd.getMonthOfYear()+"-"+weekEnd.getDayOfMonth();
+
         try {
-            return orderRepository.findByWorkDayAndCompanyId(new SimpleDateFormat("yyyy-MM-dd").parse(date), idCompany);
+            return orderRepository.findByWorkDayAndCompanyId(new SimpleDateFormat(pattern).parse(from),
+                    new SimpleDateFormat(pattern).parse(to),idCompany);
         } catch (ParseException e) {
             e.printStackTrace();
         }

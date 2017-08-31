@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface OrderRepository extends MongoRepository<Order, String> {
-    @Query("{ workDay: {\"$eq\": ?0}, companyId: ?1 }")
-    List<Order> findByWorkDayAndCompanyId(Date date, String companyId);
+    @Query("{ workDay: {\"$gt\": ?0, \"$lt\": ?1}, companyId: ?2 }")
+    List<Order> findByWorkDayAndCompanyId(Date from, Date to, String companyId);
     List<Order> findByCompanyId(String companyId);
     List<Order> findByUserId(String userId);
 }
