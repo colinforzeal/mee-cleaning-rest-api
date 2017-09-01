@@ -21,8 +21,6 @@ import static com.mee.utils.Utils.origin;
 @RequestMapping(value = "/company")
 public class CompanyController {
     @Autowired
-    private CompanyRepository companyRepository;
-    @Autowired
     private CompanyService companyService;
     private static Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
@@ -40,30 +38,36 @@ public class CompanyController {
         return new ResponseEntity<>(companyService.getAllCompanies(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)//todo: only admin function
+    public ResponseEntity<List<Company>> findByName(@PathVariable String name) {
+        logger.info("Find companies by name {}", name);
+        return new ResponseEntity<>(companyService.getByName(name), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)//todo: admin and company owner
     public ResponseEntity<Company> findCompanyById(@PathVariable String id) {
         logger.info("Find company with id = {}", id);
-        return new ResponseEntity<>(companyRepository.findOne(id), HttpStatus.OK);
+        return new ResponseEntity<>(companyService.getById(id).get(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<?> saveCompany(@Valid @RequestBody Company company) {
         logger.info("Save company: {}", company);
-        companyRepository.save(company);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Company savedCompany = companyService.save(company);
+        return new ResponseEntity<>(savedCompany, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)//todo: only company (or together with admin)
     public ResponseEntity<?> updateCompany(@Valid @RequestBody Company company) {
         logger.info("Update company with id = {}", company.getId());
-        companyRepository.save(company);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Company updatedCompany = companyService.update(company);
+        return new ResponseEntity<>(updatedCompany, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)//todo: only company (or together with admin)
     public ResponseEntity<?> deleteCompany(@PathVariable String id) {
         logger.info("Delete company with id = {}", id);
-        companyRepository.delete(id);
+        companyService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.mee.controller;
 
+import com.mee.dto.OrderDTO;
 import com.mee.entity.Order;
 import com.mee.security.auth.login.LoginAuthenticationProcessingFilter;
 import com.mee.service.order.OrderService;
@@ -41,7 +42,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)//todo: only user
-    public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
+    public ResponseEntity<Order> saveOrder(@RequestBody OrderDTO order) {
         logger.info("Save new order: {}", order);
         Order savedOrder = orderService.save(order);
         return new ResponseEntity<>(savedOrder, HttpStatus.OK);

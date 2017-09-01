@@ -10,6 +10,10 @@ import java.util.Optional;
 public interface CompanyService {
     List<Company> getAllCompanies();
     List<Order> getSchedule(String date, String idCompany);
-    void save(Company company);
+    List<Company> getByName(String name);
+    Optional<Company> getById(String id);
+    Company save(Company company);
+    Company update(Company company);
+    void delete(String id);
     Optional<Company> getByEmail(String email);
 }
