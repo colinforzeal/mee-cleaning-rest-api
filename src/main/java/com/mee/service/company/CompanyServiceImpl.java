@@ -27,7 +27,7 @@ import java.util.Optional;
 @Transactional
 public class CompanyServiceImpl implements CompanyService {
     private static final Integer DEFAULT_PAGE = 0;
-    private static final Integer CAPACITY = 9;
+    private static final Integer CAPACITY = 3;
     @Autowired
     private CompanyRepository companyRepository;
     @Autowired

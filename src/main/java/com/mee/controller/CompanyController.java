@@ -18,7 +18,7 @@ import static com.mee.utils.Utils.origin;
 
 @CrossOrigin(origins = origin, maxAge = 3600)
 @RestController
-@RequestMapping(value = "/company")
+@RequestMapping(value = "api/company")
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
@@ -41,7 +41,7 @@ public class CompanyController {
     @RequestMapping(value = "/findByName", method = RequestMethod.GET)//todo: only admin function
     public ResponseEntity<List<Company>> findByName(@RequestParam("name") String name,
                                                     @RequestParam("page") String page) {
-        logger.info("Find companies by name {} with page", name, page);
+        logger.info("Find companies by name {} with page {}", name, page);
         return new ResponseEntity<>(companyService.getByName(name, page), HttpStatus.OK);
     }
 
