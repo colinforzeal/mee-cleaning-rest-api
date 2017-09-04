@@ -38,10 +38,11 @@ public class CompanyController {
         return new ResponseEntity<>(companyService.getAllCompanies(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)//todo: only admin function
-    public ResponseEntity<List<Company>> findByName(@PathVariable String name) {
-        logger.info("Find companies by name {}", name);
-        return new ResponseEntity<>(companyService.getByName(name), HttpStatus.OK);
+    @RequestMapping(value = "/findByName", method = RequestMethod.GET)//todo: only admin function
+    public ResponseEntity<List<Company>> findByName(@RequestParam("name") String name,
+                                                    @RequestParam("page") String page) {
+        logger.info("Find companies by name {} with page", name, page);
+        return new ResponseEntity<>(companyService.getByName(name, page), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)//todo: admin and company owner

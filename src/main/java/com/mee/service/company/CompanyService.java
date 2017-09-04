@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface CompanyService {
     List<Company> getAllCompanies();
     List<Order> getSchedule(String date, String idCompany);
-    List<Company> getByName(String name);
+    List<Company> getByName(String name, String page);
     Optional<Company> getById(String id);
     Company save(Company company);
     Company update(Company company);

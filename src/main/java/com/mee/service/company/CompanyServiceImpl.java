@@ -57,8 +57,10 @@ public class CompanyServiceImpl implements CompanyService {
         return null;
     }
 
-    public List<Company> getByName(String name) {
-        return this.companyRepository.findByNameIsLike(name);
+    public List<Company> getByName(String name, String page) {
+        Integer pageNumber = Integer.valueOf(page) - 1;
+        Pageable pageable = new PageRequest(pageNumber, CAPACITY);
+        return this.companyRepository.findByNameIsLike(name, pageable);
     }
 
     public Optional<Company> getById(String id) {
