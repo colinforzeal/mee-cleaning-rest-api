@@ -37,7 +37,32 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public Order save(OrderDTO orderDTO) {
+        Order order = getDataFromDTO(orderDTO);
+
+        return orderRepository.insert(order);
+    }
+
+    public Order update(OrderDTO orderDTO) {
+        if(orderDTO.getId() == null) {
+            return new Order();
+        }
+        Order order = getDataFromDTO(orderDTO);
+        System.err.println(order);
+        return orderRepository.save(order);
+    }
+
+    public void delete(String idOrder) {
+        orderRepository.delete(idOrder);
+    }
+
+    @Override
+    public Order findById(String orderId) {
+        return orderRepository.findOne(orderId);
+    }
+
+    private Order getDataFromDTO(OrderDTO orderDTO) {
         Order order = new Order();
+        order.setId(orderDTO.getId());
         order.setUserId(orderDTO.getUserId());
         order.setCompanyId(orderDTO.getCompanyId());
         User user = userRepository.findOne(orderDTO.getUserId());
@@ -54,19 +79,6 @@ public class OrderServiceImpl implements OrderService {
         order.setWorkHoursTo(workHoursTo);
         order.setWorkDay(date);
 
-        return orderRepository.save(order);
-    }
-
-    public Order update(Order order) {
-        return orderRepository.save(order);
-    }
-
-    public void delete(String idOrder) {
-        orderRepository.delete(idOrder);
-    }
-
-    @Override
-    public Order findById(String orderId) {
-        return orderRepository.findOne(orderId);
+        return order;
     }
 }

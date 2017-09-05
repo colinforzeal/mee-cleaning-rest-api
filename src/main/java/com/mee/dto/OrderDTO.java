@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
+    private String id;
     private String companyId;
     private String userId;
     private Date startsAt;

@@ -9,7 +9,7 @@ public interface OrderService {
     List<Order> findByCompanyId(String companyId);
     List<Order> findByUserId(String userId);
     Order save(OrderDTO order);
-    Order update(Order order);
+    Order update(OrderDTO order);
     void delete(String idOrder);
     Order findById(String orderId);
 }

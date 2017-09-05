@@ -49,8 +49,8 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)//todo: company and user?
-    public ResponseEntity<Order> updateOrder(@RequestBody Order order) {
-        logger.info("Update order with id = {}", order.getId());
+    public ResponseEntity<Order> updateOrder(@RequestBody OrderDTO order) {
+        logger.info("Update order {} with id = {}", order, order.getId());
         Order updatedOrder = orderService.update(order);
         return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
     }
@@ -59,6 +59,6 @@ public class OrderController {
     public ResponseEntity<Order> deleteOrder(@PathVariable String id) {
         logger.info("Delete order with id = {}", id);
         orderService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(new Order(), HttpStatus.OK);//response must be null or {}
     }
 }
