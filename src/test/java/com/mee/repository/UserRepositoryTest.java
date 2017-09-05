@@ -19,9 +19,7 @@ public class UserRepositoryTest {
     public void save() throws Exception {
         User user = new User();
         user.setId("3");
-        user.setFirstName("Igar");
-        user.setPassword("IgorekVershik");
-        user.setLastName("Vershall");
+        user.setName("sone man");
         user.setFacebookId("g8ffg75blar654nza75");
         user.setPhotoUrl("http://gordonua.com/img/article/1880/74_tn.jpg");
         userRepository.save(user);
@@ -29,7 +27,7 @@ public class UserRepositoryTest {
 
     @Test
     public void findUserByUserName() {
-        User user = userRepository.findByFirstName("user");
+        User user = userRepository.findByName("user");
         System.out.println(user);
     }
 
@@ -37,8 +35,7 @@ public class UserRepositoryTest {
     public void update() {
         User user = new User();
         user.setId("21");
-        user.setFirstName("some_other_name");
-        user.setPassword("fffxxxx");
+        user.setName("some man");
         userRepository.save(user);
     }
 

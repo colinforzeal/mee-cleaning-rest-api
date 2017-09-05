@@ -5,7 +5,7 @@ import com.mee.entity.User;
 import java.util.List;
 
 public interface UserService {
-    User findByFirstName(String firstName);
+    User findByName(String firstName);
     User findById(String id);
     List<User> findAll();
     public void save(User user);

@@ -12,6 +12,7 @@ import com.mee.service.user.UserService;
 import com.mee.service.company.CompanyService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.http.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,12 +38,6 @@ public class AuthenticationController {
     @Autowired
     private CompanyService companyService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private JwtTokenFactory tokenFactory;
-
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody AuthRequest authRequest) {
         Company company = new Company();
@@ -53,23 +48,5 @@ public class AuthenticationController {
         companyService.save(company);
 
         return new ResponseEntity<>(new EmptyJsonResponse(), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/facebook", method = RequestMethod.GET)
-    public ResponseEntity<Principal> facebook(Principal principal) {
-//        User user = new User();
-//        // todo get info from principal
-//        userService.save(user);
-//
-//        List<GrantedAuthority> authorities = user.getRoles().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-//                .collect(Collectors.toList());
-//
-//        UserContext userContext = new UserContext(user.getFacebookId(), authorities);
-//
-//        JwtToken accessToken = tokenFactory.createAccessJwtTokenForUser(userContext);
-//
-//        return new ResponseEntity<>(accessToken, HttpStatus.OK);
-        return new ResponseEntity<>(principal, HttpStatus.OK);
     }
 }

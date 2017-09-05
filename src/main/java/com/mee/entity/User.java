@@ -16,10 +16,8 @@ public class User {
     @Id
     private String id;
 
-    private String firstName;
-    private String lastName;
+    private String name;
     private String facebookId;
-    private String password;
     private String photoUrl;
     private List<Role> roles;
 }

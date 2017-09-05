@@ -4,12 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.mee.security.CustomCorsFilter;
+import com.mee.security.auth.handlers.FacebookAuthenticationSuccessHandler;
+import com.mee.security.auth.handlers.GeneralAuthenticationFailureHandler;
+import com.mee.security.auth.handlers.GeneralAuthenticationSuccessHandler;
 import com.mee.security.auth.login.LoginAuthenticationProcessingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,8 +23,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
-import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -49,8 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String RESOURCES_ENTRY_POINT = "/api/**";
     
     @Autowired private RestAuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired private AuthenticationFailureHandler failureHandler;
-    @Autowired private AuthenticationSuccessHandler successHandler;
+    @Autowired private GeneralAuthenticationFailureHandler loginFailureHandler;
+    @Autowired private GeneralAuthenticationSuccessHandler loginSuccessHandler;
+    @Autowired private FacebookAuthenticationSuccessHandler facebookSuccessHandler;
     @Autowired private LoginAuthenticationProvider loginAuthenticationProvider;
     @Autowired private JwtAuthenticationProvider jwtAuthenticationProvider;
     @Autowired private TokenExtractor tokenExtractor;
@@ -61,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired private ResourceServerProperties facebookResource;
 
     protected LoginAuthenticationProcessingFilter buildLoginProcessingFilter() throws Exception {
-        LoginAuthenticationProcessingFilter filter = new LoginAuthenticationProcessingFilter(LOGIN_ENTRY_POINT, successHandler, failureHandler, objectMapper);
+        LoginAuthenticationProcessingFilter filter = new LoginAuthenticationProcessingFilter(LOGIN_ENTRY_POINT, loginSuccessHandler, loginFailureHandler, objectMapper);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }
@@ -70,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         List<String> pathsToSkip = Arrays.asList(LOGIN_ENTRY_POINT, SIGNUP_ENTRY_POINT, FACEBOOK_ENTRY_POINT);
         SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, RESOURCES_ENTRY_POINT);
         JwtTokenAuthenticationProcessingFilter filter 
-            = new JwtTokenAuthenticationProcessingFilter(failureHandler, tokenExtractor, matcher);
+            = new JwtTokenAuthenticationProcessingFilter(loginFailureHandler, tokenExtractor, matcher);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }
@@ -85,6 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         tokenServices.setRestTemplate(facebookTemplate);
         facebookFilter.setTokenServices(
                 new UserInfoTokenServices(facebookResource.getUserInfoUri(), facebook.getClientId()));
+        facebookFilter.setAuthenticationSuccessHandler(facebookSuccessHandler);
         return facebookFilter;
     }
 

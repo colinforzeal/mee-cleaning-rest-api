@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUserId(orderDTO.getUserId());
         order.setCompanyId(orderDTO.getCompanyId());
         User user = userRepository.findOne(orderDTO.getUserId());
-        String fullName = user.getFirstName()+" "+ user.getLastName();
+        String fullName = user.getName();
         order.setFullName(fullName);
         Company company = companyRepository.findOne(orderDTO.getCompanyId());
         order.setCompanyName(company.getId());
